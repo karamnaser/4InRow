@@ -29,7 +29,18 @@ class Bored {
             return bored;
 
         }
+        moveplayer(e, color) {
+            let column = e.currentTarget
+            let column_divs = column.childNodes;
+            for (let i = column_divs.length - 1; i >= 0; i--) {
+                if (column_divs[i].style.backgroundColor != color) {
+                    column_divs[i].style.backgroundColor = color
+                    console.log(this.state.counter++);
 
+                    break;
+                }
+            }
+        }
 
     }
     export default Bored
