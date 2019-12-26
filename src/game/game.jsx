@@ -60,9 +60,9 @@ class Game extends React.Component {
         const {board,currentPlayer} = this.state;
         return(
             <div className={"game"}>
-             <h1>`Current Player: {currentPlayer.name}`</h1>
+             <h1>`Current Player: {currentPlayer ? currentPlayer.name : ""}`</h1>
                 <div className={"board"}>
-                    {board? board.foreach(row => row.foreach(cell => console.log(cell))): ""}
+                 {board? board.map(row =><div className="d-flex"> {row.map(cell =><div>{cell}</div>)}</div>): ""}
                 </div>
 
             </div>
@@ -70,3 +70,4 @@ class Game extends React.Component {
   }
 }
 export default Game;
+//i changed the h1 elemnt in render and foreach dosnt work with react render()
