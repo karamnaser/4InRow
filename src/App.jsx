@@ -6,7 +6,6 @@ import Games from './game/game';
 function App() {
   return (
       <div>
-        <h1>dani</h1>
         <Games/>
    </div>
   );
