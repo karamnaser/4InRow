@@ -9,38 +9,56 @@ class Board {
         this.counter = 1;
         this.row = 0;
         this.col = 0;
+        this.board = [];
+        this.pointlocation = 0
     }
+
+
     creatbored() {
-        let row = prompt('pls enetr number of row (min 4 rows)')
-        row = row < 4 ? 4 : row;
-        let column = prompt('pls enter number of column (min 4 column)')
-        column = column < 4 ? 4 : column
-        let bored = []
-        for (let i = 0; i < column; i++) {
+        this.row = prompt('pls enetr number of row (min 4 rows)')
+        this.row = this.row < 4 ? 4 : this.row;
+        this.column = prompt('pls enter number of column (min 4 column)')
+        this.column = this.column < 4 ? 4 : this.column
+        let board = []
+        for (let i = 0; i < this.column; i++) {
             let div_arr = []
-            for (let j = 0; j < row; j++) {
-                div_arr.push( < BorderCells columnnumber = { i }
-                    rownumber = { j }
-                    />)
-                }
-                bored.push(div_arr)
+            for (let j = 0; j < this.row; j++) {
+                div_arr.push(0)
             }
-            console.log(bored)
-            return bored;
-
+            board.push(div_arr)
         }
-        moveplayer(e, color) {
-            let column = e.currentTarget
-            let column_divs = column.childNodes;
-            for (let i = column_divs.length - 1; i >= 0; i--) {
-                if (column_divs[i].style.backgroundColor != color) {
-                    column_divs[i].style.backgroundColor = color
-                    console.log(this.state.counter++);
-
-                    break;
-                }
-            }
-        }
+        this.board = board;
+        return board;
 
     }
+
+
+    checkifboaredfill() {
+        return this.counter == (this.col * this.row);
+    }
+
+    moveplayer(e, player) {
+        let column = e.currentTarget
+        let board_coulumn = this.board[column.getattrebute("column_number")];
+        for (let i = board_coulumn.length - 1; i >= 0; i--) {
+            if (board_coulumn[i] != player.icon && board_coulumn[i] == 0) {
+                this.board[i] = player.icon;
+                this.pointlocation = { x: i, y: column.column_number }
+                console.log(this.pointlocation)
+                return true
+            }
+
+
+
+        }
+        return false
+
+    }
+<<<<<<< HEAD:src/borde/borde.js
+
+}
+
+export default Bored
+=======
     export default Board;
+>>>>>>> master:src/board/board.js
