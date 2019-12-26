@@ -1,46 +1,72 @@
-import React from 'react'
+import React from 'react';
 // import BorderCells from './cells'
-import  Bored from '../border/border.js'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import  Board from '../board/board.js';
+import Player from "../player/player.js";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+const testboard = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
 
 class Game extends React.Component {
-
     constructor(props){
         super(props)
-        this.state={
-           current_player:"black",
-           players:[],
-           border:new Bored()
+        this.state = {
+           player1: null,
+           player2: null,
+           board: testboard,
+        //    board: new Board(),
+           currentPlayer: null
         }
     }
-    setplayer(numofplaye){
-        for(let i=0;i<numofplaye;i++){
-            let player
-        this.state.players.push(<div><h1>{}</h1></div>)
-        }
+    componentWillMount(){
+        this.setPlayers(2);
+    }
 
+    setBoard(){
+        const row = prompt("Enter number of rows:");
+        const colums = prompt("Enter number of colums:");
+        this.state.board.init(row,colums);
     }
+
+    setPlayers(numOfPlayers){
+        if(numOfPlayers === 2){
+            const name1 = prompt("Enter player #1 name:");
+            const color1 = "red";
+            const name2 = prompt("Enter player #2 name:");
+            const color2 = "yellow";
+            this.setState({
+                player1: new Player(name1,color1),
+                player2: new Player(name2,color2),
+                currentPlayer: this.state.player1
+            })
+        }
+    }
+
+    switchPlayer(){
+        const {currentPlayer, player1, player2 } = this.state;
+        let switchPlayer; 
+        if(currentPlayer === player1){
+            switchPlayer = player2;
+        }else{
+            switchPlayer = player1;
+        }
+        this.setState({
+            currentPlayer: switchPlayer
+        });
+    }
+
+ 
     render(){
+        const {board,currentPlayer} = this.state;
         return(
-                    <div className="row game justify-content-center">
-                        <div className="border d-flex border border-dark p-2">
-                      {this.state.border.creatbored().map((div,i)=><div onClick={(e)=>{
-                          let column=e.currentTarget
-                          let column_divs=column.childNodes;
-                          for(let i=column_divs.length-1;i>=0;i--){
-                              if(column_divs[i].style.backgroundColor!="blue"){
-                                column_divs[i].style.backgroundColor="blue"
-                                console.log(this.state.counter++);
-        
-                                break;
-                              }
-                          }
-                      }} columnnumber={i}>{div.map((innerdiv)=>innerdiv)}</div>)}
-        
-                    </div>
-                    </div>
-                )
+            <div className={"game"}>
+             <h1>`Current Player: {currentPlayer.name}`</h1>
+                <div className={"board"}>
+                    {board? board.foreach(row => row.foreach(cell => console.log(cell))): ""}
+                </div>
 
-    }
+            </div>
+    )
+  }
 }
 export default Game;

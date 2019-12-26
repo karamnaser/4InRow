@@ -2,7 +2,7 @@ import React from 'react'
 import BorderCells from './cells'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-class Bored {
+class Board {
 
     constructor() {
 
@@ -43,4 +43,4 @@ class Bored {
         }
 
     }
-    export default Bored
+    export default Board;
