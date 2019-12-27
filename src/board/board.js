@@ -5,20 +5,23 @@ class Board {
 
     constructor() {
 
-        this.counter = 1;
+        this.counter = 0;
         this.row = 0;
         this.col = 0;
         this.board = [];
         this.pointlocation = 0
     }
-
-    checkrow(point,player){
+    get pointlocation(){
+        return this.pointlocation;
+    }
+    get board(){
+        return this.board;
+    }
+   
+    static checkrow(point,player){
         let counter=0;
-        console.log(point);
         let row_number=point.x;//gitting the point row number
-        console.log(row_number);
         let board_row=this.board[row_number];
-        console.log(board_row)
         for(let i=0;board_row.length;i++){
             if(board_row[i]==player.color){
                 counter++
@@ -37,11 +40,9 @@ class Board {
             }
     }
 
-    checkcolumn(point,player){
+   static checkcolumn(point,player){
         let counter=0;
-        console.log(point);
         let column_number=point.y;//gitting the point column number
-        console.log(column_number);
         for (let i = this.row- 1; i >= 0; i--){
             if(this.board[i][column_number]==player.color){
                 counter++
@@ -60,7 +61,7 @@ class Board {
             }
     }
 
-    checkdiagnalrighttoleft(point,player){
+    static checkdiagnalrighttoleft(point,player){
         let row_number= point.x;
         let column_number=point.y
         let counter=0;
@@ -86,7 +87,7 @@ class Board {
     }
 
     
-    creatbored() {
+    static creatbored() {
         this.row = prompt('pls enetr number of row (min 4 rows)')
         this.row = this.row < 4 ? 4 : this.row;
         this.column = prompt('pls enter number of column (min 4 column)')
@@ -100,21 +101,21 @@ class Board {
             board.push(div_arr)
         }
         this.board = board;
-        console.log(this.board)
         return board;
 
     }
 
 
-    checkifboaredfill() {
-        return this.counter == (this.col * this.row);
+    static checkifboaredfill(counter,row,column) {
+        return counter == (column * row);
+        
     }
 
-    getrandomcolumn(){
+    static getrandomcolumn(){
         return Math.floor(Math.random()*3)
     }
 
-    moveplayer(e, player) {
+    static moveplayer(e, player) {
         let board_coulumn
         let column
         if(player.constructor.name!="Computer"){
@@ -125,15 +126,12 @@ class Board {
             board_coulumn=this.getrandomcolumn()
         }
         for (let i = this.row- 1; i >= 0; i--) {
-            if (this.board[i][board_coulumn] != player.color && this.board[i][board_coulumn] == 0) {
-                this.board[i][board_coulumn] = player.color;
-                console.log(this.board)
+            if (this.board[board_coulumn][i] != player.color && this.board[board_coulumn][i] == 0) {
+                this.board[board_coulumn][i] = player.color;
                 this.pointlocation = { x: i, y:parseInt(column.getAttribute("column_number"))}
+                console.log(Board.counter)
                 return true
             }
-
-
-
         }
         return false
 
