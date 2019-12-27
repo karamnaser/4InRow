@@ -19,8 +19,7 @@ class Game extends React.Component {
            currentPlayer: null
         }
     }
-    componentWillMount(){
-       
+    componentWillMount(){    
         this.setPlayers(2);
     }
 
@@ -36,10 +35,12 @@ class Game extends React.Component {
             const color1 = "red";
             const name2 = prompt("Enter player #2 name:");
             const color2 = "yellow";
+            const player1 = new Player(name1,color1);
+            const player2 = new Player(name1,color2);
             this.setState({
-                player1: new Player(name1,color1),
-                player2: new Player(name2,color2),
-                currentPlayer: this.state.player1
+                player1,
+                player2,
+                currentPlayer: player1
             })
         }
     }
@@ -66,10 +67,9 @@ class Game extends React.Component {
         const {board,currentPlayer} = this.state;
         return(
             <div className={"game"}>
-             {/* <h1>`Current Player: {currentPlayer.name}`</h1> */}
-                <div className={"board"}> 
-                    {board? board.map(row => row.map((cell,i) => <div className={`cell colum${i+1}`}>{cell}</div>)): ""}
-                    
+             <h1>Current Player: {currentPlayer ? currentPlayer.name : "no player"}</h1>
+                <div className={"board"}>
+                 {board? board.map(row =><div className="d-flex"> {row.map((cell,i) =><div className={`cell colum${i}`}></div>)}</div>): ""}
                 </div>
 
             </div>
@@ -77,3 +77,4 @@ class Game extends React.Component {
   }
 }
 export default Game;
+//i changed the h1 elemnt in render and foreach dosnt work with react render()
