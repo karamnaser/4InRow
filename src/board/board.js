@@ -77,7 +77,6 @@ class Board {
          
         console.log("number of mach cells :",counter)
         if(counter==4){
-            alert("ther is ainner")
             return true;
         }
         else{
