@@ -111,10 +111,20 @@ class Board {
         return this.counter == (this.col * this.row);
     }
 
+    getrandomcolumn(){
+        return Math.floor(Math.random()*3)
+    }
 
     moveplayer(e, player) {
-        let column = e.currentTarget
-        let board_coulumn = column.getAttribute("column_number");
+        let board_coulumn
+        let column
+        if(player.constructor.name!="Computer"){
+        column = e.currentTarget
+        board_coulumn= column.getAttribute("column_number");
+        }
+        else{
+            board_coulumn=this.getrandomcolumn()
+        }
         for (let i = this.row- 1; i >= 0; i--) {
             if (this.board[i][board_coulumn] != player.color && this.board[i][board_coulumn] == 0) {
                 this.board[i][board_coulumn] = player.color;
@@ -128,6 +138,7 @@ class Board {
         }
         return false
 
-    }
+}
+
 }
 export default Board;
