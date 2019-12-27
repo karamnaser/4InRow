@@ -3,13 +3,14 @@ import React from 'react';
 import  Board from '../board/board.js';
 import Player from "../player/player.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "./game.css";
 
 
 const testboard = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
 
 class Game extends React.Component {
     constructor(props){
-        super(props)
+        super(props);
         this.state = {
            player1: null,
            player2: null,
@@ -19,6 +20,7 @@ class Game extends React.Component {
         }
     }
     componentWillMount(){
+       
         this.setPlayers(2);
     }
 
@@ -55,14 +57,19 @@ class Game extends React.Component {
         });
     }
 
+    move(){
+
+    }
+
  
     render(){
         const {board,currentPlayer} = this.state;
         return(
             <div className={"game"}>
-             <h1>`Current Player: {currentPlayer.name}`</h1>
-                <div className={"board"}>
-                    {board? board.foreach(row => row.foreach(cell => console.log(cell))): ""}
+             {/* <h1>`Current Player: {currentPlayer.name}`</h1> */}
+                <div className={"board"}> 
+                    {board? board.map(row => row.map((cell,i) => <div className={`cell colum${i+1}`}>{cell}</div>)): ""}
+                    
                 </div>
 
             </div>
