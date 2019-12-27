@@ -60,6 +60,32 @@ class Board {
             }
     }
 
+    checkdiagnalrighttoleft(point,player){
+        let row_number= point.x;
+        let column_number=point.y
+        let counter=0;
+        while(row_number<this.row && column_number<this.column){
+            if(this.board[row_number][column_number]==player.color){
+                row_number++;
+                column_number--;
+                counter++
+            }
+            else{
+                break;
+            }
+        }
+         
+        console.log("number of mach cells :",counter)
+        if(counter==4){
+            alert("ther is ainner")
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+
     
     creatbored() {
         this.row = prompt('pls enetr number of row (min 4 rows)')
@@ -90,7 +116,7 @@ class Board {
         let column = e.currentTarget
         let board_coulumn = column.getAttribute("column_number");
         for (let i = this.row- 1; i >= 0; i--) {
-            if (this.board[i][board_coulumn] != player.icon && this.board[i][board_coulumn] == 0) {
+            if (this.board[i][board_coulumn] != player.color && this.board[i][board_coulumn] == 0) {
                 this.board[i][board_coulumn] = player.color;
                 console.log(this.board)
                 this.pointlocation = { x: i, y:parseInt(column.getAttribute("column_number"))}
