@@ -87,6 +87,10 @@ class Game extends React.Component {
         }
     }
 
+    resetGame(){
+        this.setState({board:Board.creatbored(),winner:null})
+    }
+
  
     render(){
         const {board,currentPlayer,winner} = this.state;
@@ -105,6 +109,9 @@ class Game extends React.Component {
                  if(this.checkIfPlayerWin(currentPlayer)){
 
                      alert(`ther is awinner ${this.state.winner.name}`)
+                     if ( window.confirm(`winner is already decided do you want to start again`)){
+                        this.resetGame()
+                        }
                  }
                   if(this.checkIfBoaredFull()){
                     alert('boared is full')
@@ -113,10 +120,9 @@ class Game extends React.Component {
                  this.switchPlayer();
                  }
                 }
-                 
-                 else{
-                     alert(`winner is already decided ${this.state.winner.name}`)
-                 }
+                else if ( window.confirm(`winner is already decided do you want to start again`)){
+                    this.resetGame()
+                    }
                 }
             } > 
                  {row.map((cell,j) =><div  column_number={j} style={{width:"100px",height:"100px",borderRadius:"50%",border:"1px solid",
