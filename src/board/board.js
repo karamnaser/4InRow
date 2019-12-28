@@ -22,10 +22,10 @@ class Board {
         let counter=0;
         let row_number=point.x;//gitting the point row number
         let board_row=this.board[row_number];
+        console.log(board_row);
         for(let i=0;board_row.length;i++){
             if(board_row[i]==player.color){
                 counter++
-                console.log("ther was amach :")
             }
             else{
                 break;
@@ -119,17 +119,17 @@ class Board {
         let board_coulumn
         let column
         if(player.constructor.name!="Computer"){
-        column = e.currentTarget
+        column = e.target
         board_coulumn= column.getAttribute("column_number");
         }
         else{
             board_coulumn=this.getrandomcolumn()
         }
         for (let i = this.row- 1; i >= 0; i--) {
-            if (this.board[board_coulumn][i] != player.color && this.board[board_coulumn][i] == 0) {
-                this.board[board_coulumn][i] = player.color;
+            if (this.board[i][board_coulumn] != player.color && this.board[i][board_coulumn] == 0) {
+                this.board[i][board_coulumn] = player.color;
                 this.pointlocation = { x: i, y:parseInt(column.getAttribute("column_number"))}
-                console.log(Board.counter)
+                console.log(column)
                 return true
             }
         }

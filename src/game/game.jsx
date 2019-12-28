@@ -1,34 +1,28 @@
-
 import React from 'react';
 // import BorderCells from './cells'
 import  Board from '../board/board.js';
 import Player from "../player/player.js";
+import './game.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
-const testboard = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
 
 class Game extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-           player1: null,
-           player2: null,
-           board:Board.creatbored(),
+           player1: {},
+           player2: {},
+           board: Board.creatbored(),
            counter:0,
-        //    board: new Board(),
-           currentPlayer: null
+           currentPlayer: null,
+           winner:null
         }
     }
     componentWillMount(){
         this.setPlayers(2);
+        
     }
 
-    setBoard(){
-        const row = prompt("Enter number of rows:");
-        const colums = prompt("Enter number of colums:");
-        this.state.board.init(row,colums);
-    }
 
     setPlayers(numOfPlayers){
         if(numOfPlayers === 2){
@@ -39,24 +33,23 @@ class Game extends React.Component {
             this.setState({
                 player1: new Player(name1,color1),
                 player2: new Player(name2,color2),
-                currentPlayer:{name:name1,color:color1}
-            })
+            },()=>this.setState({currentPlayer:this.state.player1}))
         }
     }
 
     switchPlayer(){
         const {currentPlayer, player1, player2 } = this.state;
-        let switchPlayer; 
-        if(currentPlayer === player1){
-            switchPlayer = player2;
+        if(currentPlayer == player1){
+            this.setState({
+                currentPlayer: player2
+            });
         }else{
-            switchPlayer = player1;
+            this.setState({
+                currentPlayer: player1
+            });
         }
-        this.setState({
-            currentPlayer: switchPlayer
-        });
+       
     }
-
     pushcoin(e,player){
         if(Board.moveplayer(e,player)){
             this.state.counter++
@@ -64,14 +57,20 @@ class Game extends React.Component {
         this.setState({board:Board.board})
 
     }
-    checkIfPlayerWin(){
+    checkIfPlayerWin(currentPlayer){
         if(Board.checkrow(Board.pointlocation,this.state.currentPlayer)){
+           this.state.winner=currentPlayer;
+           console.log("row winner with  is :",this.state.winner)
             return true
         }
         if(Board.checkcolumn(Board.pointlocation,this.state.currentPlayer)){
+            this.state.winner=currentPlayer;
+            console.log("column winner is:",this.state.winner)
             return true
         }
         if(Board.checkdiagnalrighttoleft(Board.pointlocation,this.state.currentPlayer)){
+            this.state.winner=currentPlayer;
+            console.log("diagnal winner winner is:",this.state.winner)
             return true
         }
         else{
@@ -87,26 +86,43 @@ class Game extends React.Component {
             return false
         }
     }
+
+ 
     render(){
-        const {board,currentPlayer,counter} = this.state;
+        const {board,currentPlayer,winner} = this.state;
         return(
             <div className={"game"}>
              <h1>`Current Player: {currentPlayer ? currentPlayer.name : ""}`</h1>
-                <div className={"board d-flex"}>
-                 {board? board.map((row,i) =><div onClick={(e)=>{this.pushcoin(e,this.state.player1)
-                 console.log(this.state.counter)
-                //  if(this.checkIfPlayerWin()){
-                //      alert('ther is awinner')
-                
-                if(this.checkIfBoaredFull()){
+                <div className="board">
+                 {board?board.map((row,i) =>
+                 <div className="d-flex"  onClick={(e)=>
+                    { 
+                    if(!winner){
+                       
+                        this.pushcoin(e,currentPlayer)
+
+               
+                 if(this.checkIfPlayerWin(currentPlayer)){
+
+                     alert(`ther is awinner ${this.state.winner.name}`)
+                 }
+                  if(this.checkIfBoaredFull()){
                     alert('boared is full')
                 }
-                 }} 
-                 column_number={i}> 
-                 {row.map(cell =><div style={{width:"100px",height:"100px",borderRadius:"50%",border:"1px solid",
-                color:cell!=0 && cell ? this.state.player1.color:""}}>
-
-                 </div>)}</div>): ""}
+                else{
+                 this.switchPlayer();
+                 }
+                }
+                 
+                 else{
+                     alert(`winner is already decided ${this.state.winner.name}`)
+                 }
+                }
+            } > 
+                 {row.map((cell,j) =><div  column_number={j} style={{width:"100px",height:"100px",borderRadius:"50%",border:"1px solid",
+                color:cell!=0 && cell ? cell:""}}>
+                    
+                 </div>)}</div>):""}
                 </div>
 
             </div>
