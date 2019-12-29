@@ -72,78 +72,43 @@ class Board {
     static checkdiagnalrighttoleft(point, player) {
             let counter = 0;
             let column_number = point.y
+            let row_number = point.x
+        
             for (let i = 0; i < this.row; i++) {
-                if (this.board[i][column_number--] == player.color) {
+                console.log(this.board[i])
+                if (this.board[i][column_number] == player.color) {
                     counter++
+                    column_number--
+                    console.log(counter)
                     if (counter == 4) {
                         return true;
                     }
                 } else {
-                    return false;
+                    counter=0;
                 }
             }
-            console.log(this.board)
+            if(counter!=4){
+                return false
+            }
+            for (let i = this.row; i >=0; i--) {
+                if (this.board[i][column_number] == player.color) {
+                    counter++
+                    column_number++
+                    console.log(counter)
+                    if (counter == 4) {
+                        return true;
+                    }
+                } else {
+                    counter=0;
+                }
+            }
+            if(counter!=4){
+                return false
+            }
             console.log("number of mach cells :", counter)
 
         }
-        // static checkdiagnalrighttoleft(point, player) {
-        //     let row_number = point.x;
-        //     let column_number = point.y
-        //     let counter = 0;
-        //     let diagnalLeft = [];
-        //     let diagnalRight = [];
-
-
-
-    // const leftPoints = {
-    //     startCol: 0,
-    //     startRow: 0
-    // };
-
-    // const rightPoints = {
-    //     startCol: 0,
-    //     startRow: 0
-    // };
-
-    // if (row_number != 0 && column_number != 0) {
-    //     if (row_number > column_number) {
-    //         leftPoints.startCol = column_number - column_number;
-    //         leftPoints.startRow = row_number - column_number;
-
-    //     } else if (column_number > row_number) {
-    //         leftPoints.startRow = row_number - row_number;
-    //         leftPoints.startCol = column_number - row_number;
-    //     }
-
-    // } else {
-    //     leftPoints.startCol = column_number;
-    //     leftPoints.startRow = row_number;
-    // }
-    // this.board.map((row, i) => {
-    //     if (i >= leftPoints.startRow) {
-    //         diagnalLeft.push(row[leftPoints.startCol++]);
-    //     }
-    // })
-
-    // if (row_number != this.row - 1 && column_number != this.column - 1) {
-    //     this.board.map((row, i) => {
-    //         if (i >= leftPoints.startRow) {
-    //             diagnalLeft.push(row[leftPoints.startCol++]);
-    //         }
-    //     })
-
-    //     console.log(leftPoints);
-    //     console.log(diagnalLeft)
-
-
-    //     console.log("number of mach cells :", counter)
-    //     if (counter == 4) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-
-    // }
+        
 
 
     static creatbored() {
