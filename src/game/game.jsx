@@ -88,7 +88,7 @@ class Game extends React.Component {
     }
 
     resetGame(){
-        this.setState({board:Board.creatbored(),winner:null})
+        this.setState({board:Board.creatbored(),winner:null,counter:0})
     }
 
  
@@ -126,7 +126,7 @@ class Game extends React.Component {
                 }
             } > 
                  {row.map((cell,j) =><div  column_number={j} style={{width:"100px",height:"100px",borderRadius:"50%",border:"1px solid",
-                color:cell!=0 && cell ? cell:""}}>
+                background:cell!=0 && cell ? cell:""}}>
                     
                  </div>)}</div>):""}
                 </div>
