@@ -71,43 +71,58 @@ class Board {
 
     static checkdiagnalrighttoleft(point, player) {
             let counter = 0;
-            let column_number = point.y
-            let row_number = point.x
-        
-            for (let i = 0; i < this.row; i++) {
-                console.log(this.board[i])
-                if (this.board[i][column_number] == player.color) {
-                    counter++
-                    column_number--
-                    console.log(counter)
-                    if (counter == 4) {
-                        return true;
-                    }
-                } else {
-                    counter=0;
-                }
-            }
-            if(counter!=4){
-                return false
-            }
-            for (let i = this.row; i >=0; i--) {
-                if (this.board[i][column_number] == player.color) {
-                    counter++
-                    column_number++
-                    console.log(counter)
-                    if (counter == 4) {
-                        return true;
-                    }
-                } else {
-                    counter=0;
-                }
-            }
-            if(counter!=4){
-                return false
-            }
-            console.log("number of mach cells :", counter)
+            let column_number = point.y;
+            let row_number = point.x;
 
-        }
+            let startCol = 0;
+            let startRow = 0;
+
+            if(column_number != 0 && row_number != 0){
+                if(column_number > row_number){
+                    startCol = column_number - row_number;
+                    startRow = row_number - row_number;
+                }else if(column_number < row_number){
+                    startCol = column_number - column_number;
+                    startRow = row_number - column_number;
+                }
+            }
+        
+            for (let i = startRow; i < this.board.length; i++) {
+                console.log(this.board);
+                console.log(counter);
+                if (this.board[i][startCol] == player.color) {
+                    counter++
+                    startCol++
+                    console.log(counter)
+                    if (counter == 4) {
+                        return true;
+                    }
+                } else {
+                    counter=0;
+                    startCol++
+
+                }
+            }
+            return false
+            }
+        //     for (let i = this.row; i >=0; i--) {
+        //         if (this.board[i][column_number] == player.color) {
+        //             counter++
+        //             column_number++
+        //             console.log(counter)
+        //             if (counter == 4) {
+        //                 return true;
+        //             }
+        //         } else {
+        //             counter=0;
+        //         }
+        //     }
+        //     if(counter!=4){
+        //         return false
+        //     }
+        //     console.log("number of mach cells :", counter)
+
+        
         
 
 
