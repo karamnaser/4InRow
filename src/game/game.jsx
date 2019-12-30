@@ -68,6 +68,11 @@ class Game extends React.Component {
             console.log("column winner is:",this.state.winner)
             return true
         }
+        if(Board.checkdiagnallefttoright(Board.pointlocation,this.state.currentPlayer)){
+            this.state.winner=currentPlayer;
+            console.log("diagnal winner winner is:",this.state.winner)
+            return true
+        }
         if(Board.checkdiagnalrighttoleft(Board.pointlocation,this.state.currentPlayer)){
             this.state.winner=currentPlayer;
             console.log("diagnal winner winner is:",this.state.winner)
@@ -96,7 +101,7 @@ class Game extends React.Component {
         const {board,currentPlayer,winner} = this.state;
         return(
             <div className={"game"}>
-             <h1>`Current Player: {currentPlayer ? currentPlayer.name : ""}`</h1>
+             <h1>Current Player: {currentPlayer ? currentPlayer.name : ""}</h1>
                 <div className="board">
                  {board?board.map((row,i) =>
                  <div className="d-flex"  onClick={(e)=>

@@ -68,61 +68,75 @@ class Board {
             return false;
         }
     }
+    static checkdiagnallefttoright(point, player) {
+        let counter = 0;
+        let column_number = point.y;
+        let row_number = point.x;
+        const leftDiagnal = {
+           startCol : 0,
+           startRow : 0
+        }
+        if(column_number != 0 && row_number != 0){
+            if(column_number > row_number){
+                leftDiagnal.startCol = column_number - row_number;
+                leftDiagnal.startRow = row_number - row_number;
+            }else if(column_number < row_number){
+                leftDiagnal.startCol = column_number - column_number;
+                leftDiagnal.startRow = row_number - column_number;
+            }
+        }
+        for (let i = leftDiagnal.startRow; i < this.board.length; i++) {
+            console.log(this.board);
+            console.log(counter);
+            if (this.board[i][leftDiagnal.startCol] == player.color) {
+                counter++
+                leftDiagnal.startCol++
+                console.log(counter)
+                if (counter == 4) {
+                    return true;
+                }
+            } else {
+                counter=0;
+                leftDiagnal.startCol++
+            }
+        }
+        return false
+        };
 
     static checkdiagnalrighttoleft(point, player) {
             let counter = 0;
             let column_number = point.y;
             let row_number = point.x;
-
-            let startCol = 0;
-            let startRow = 0;
-
-            if(column_number != 0 && row_number != 0){
-                if(column_number > row_number){
-                    startCol = column_number - row_number;
-                    startRow = row_number - row_number;
-                }else if(column_number < row_number){
-                    startCol = column_number - column_number;
-                    startRow = row_number - column_number;
-                }
+      
+            const rightDiagnal = {
+                startCol : column_number,
+                startRow :  row_number
             }
-        
-            for (let i = startRow; i < this.board.length; i++) {
+
+            if(column_number != this.row-1 && row_number != 0){
+             rightDiagnal.startCol = column_number + row_number;
+             rightDiagnal.startRow = row_number - row_number;
+              
+            }
+            for (let i = rightDiagnal.startRow; i < this.board.length; i++) {
                 console.log(this.board);
                 console.log(counter);
-                if (this.board[i][startCol] == player.color) {
+                if (this.board[i][rightDiagnal.startCol] == player.color) {
                     counter++
-                    startCol++
+                    rightDiagnal.startCol--
                     console.log(counter)
                     if (counter == 4) {
                         return true;
                     }
                 } else {
                     counter=0;
-                    startCol++
-
+                    rightDiagnal.startCol--
                 }
             }
             return false
-            }
-        //     for (let i = this.row; i >=0; i--) {
-        //         if (this.board[i][column_number] == player.color) {
-        //             counter++
-        //             column_number++
-        //             console.log(counter)
-        //             if (counter == 4) {
-        //                 return true;
-        //             }
-        //         } else {
-        //             counter=0;
-        //         }
-        //     }
-        //     if(counter!=4){
-        //         return false
-        //     }
-        //     console.log("number of mach cells :", counter)
-
-        
+            };
+  
+    
         
 
 
