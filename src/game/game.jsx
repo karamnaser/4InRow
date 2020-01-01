@@ -130,7 +130,7 @@ class Game extends React.Component {
                     }
                 }
             } > 
-                 {row.map((cell,j) =><div  column_number={j} style={{width:"100px",height:"100px",borderRadius:"50%",border:"1px solid",
+                 {row.map((cell,j) =><div className="cell"  column_number={j} style={{width:"100px",height:"100px",borderRadius:"50%",border:"1px solid",
                 background:cell!=0 && cell ? cell:""}}>
                     
                  </div>)}</div>):""}
